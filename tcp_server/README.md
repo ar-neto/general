@@ -1,13 +1,17 @@
-## server_tcp
+# server_tcp
 
-# What is it?
+## What is it?
 
 This python script spawns a server that is able to listen on any desired port. Upon, connecting with it, it is able to respond with a valid HTTP/1.1 response.
 
-# Uses
+## Uses
 
 The sky is the limit. From listening to incoming request from out of band tests to setting up a home server, the applications are endless.
 
-# Requirements
+## Requirements
 
 Python 3.x as well as the "sockets", "threading" and "requests" library
+
+## Sources
+
+The code presened was inspired in the book "Black Hat Python, Python Programming for Hackers"
