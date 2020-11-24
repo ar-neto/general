@@ -24,8 +24,8 @@ def mutation1(word_array, factor,mut_prob): #mutaion function; hte arguments are
     num=random.randint(1,n)
     if num==1:
         pos = mutation_position(word_array) #position for the mutations
-        s[pos].A0 = 0.5*factor*s[pos].A0 #add the mutation in the selected position
-        s[pos].dt2 = 4*factor*s[pos].dt2
+        s[pos].A0 = factor*s[pos].A0 #add the mutation in the selected position
+        s[pos].t2 = factor*s[pos].t2
         s[pos].hi = factor*s[pos].hi
         s[pos].ho = factor*s[pos].ho
         s[pos].vo = factor*s[pos].vo
@@ -72,11 +72,11 @@ def fitness(word_array, throttle_time): #tests the quality of the solutions by a
 class in_vars: #create an object with the photo and all the relevant information
     def __init__(self,t2,A0,hi,ho,vo):
         
-        self.A0 = A0
-        self.hi  = hi
-        self.ho = ho
-        self.t2 = t2
-        self.vo = vo
+        self.A0 = A0 # outside tube surface area, cm^2
+        self.hi  = hi #inside tube heat transfer coefficient
+        self.ho = ho #outside tube heat transfer coefficient
+        self.t2 = t2 #coolant outlet temperature
+        self.vo = vo #averagev veolocity of fluiid outside tubes, cm^3/s
         #objective function variables
         self.C_C= 10 #coolant cost, EUR/yr
         self.y=5000 #operating hours/yr
@@ -89,9 +89,9 @@ class in_vars: #create an object with the photo and all the relevant information
         self.T2= 20 #hot fluid inlet temperature, ºC
         self.t1= 2 #cold fluid inlet temperature, ºC
         self.sp= 0.1 #tube spacing
-        self.Di= 0.2
-        self.Do= 0.3
-        self.Q= 1000
+        self.Di= 0.2 #inside diameter
+        self.Do= 0.3 #outside diameter
+        self.Q= 1000 #heat transfer rate in the heat escheanger J/s
         self.Ft = 1 #multipass exchange factor. for singlepass exchangers, this value is 1
         self.roo= 1 #density of the fluid outside the tubes in g/cm3
         self.roi= 1 #density of the fluid inside the tubes in g/cm3
@@ -105,10 +105,10 @@ class in_vars: #create an object with the photo and all the relevant information
         self.phio=0.5*0.01 #phi = 0.5*friction factor, which is being approximated to 0.01
         self.Ei=self.phii*self.hi**3.5
         self.Eo=self.phio*self.ho**4.75
-        self.vi =self.Wi/self.roi
+        self.vi =self.Wi/self.roi #averagev veolocity of fluiid side tubes, cm^3/s
         self.Nt =self.Wi*4/(self.vi*math.pi*self.Di**2)
-        self.Lt = self.A0/(self.Nt*math.pi*self.Do)
-        self.Ai = self.Di*self.Lt
+        self.Lt = self.A0/(self.Nt*math.pi*self.Do) #tube length
+        self.Ai = self.Di*self.Lt #outside tube surface area, cm^2
         self.fA=self.Ai/self.A0
         self.Uo =1/(1/(self.fA*self.hi)+1/self.ho)
         self.dt1=self.T1-self.t1
@@ -140,28 +140,29 @@ def crossover(parent1,parent2,gen):
     remove_parents(gen,parent1,parent2)
 
 #main
-gen_num = 1000 #max number of generations until the algorithm stops
+gen_num = 1500 #max number of generations until the algorithm stops
 mut_prob = 1/8 #probability of a random mutation occuring; you have to choose a number that corresponds to 2^(-n)
-factor1 = 0.8
-factor2 = 0.2
-factor3 = 13
+factor1 = 0.9
+factor2 = 0.92
+factor3 = 1.1
+factor4 = 1.07
 throttle_time =0
 #popl=population(wordlist) # places the wordlist in the array
 pop = [
-    [10.2,0.4,.8,.9,0.234],
-    [21,0.63,.64,.45,0.46],
-    [19,0.43,.34,.46,0.1],
-    [15,0.84,.28,.43,0.2],
-    [180,0.34,.89,.79,0.4],
-    [0.5,0.94,1.89,.769,0.44],
-    [200,0.50,0.10,0.20,0.2],
-    [.20,50,0.10,0.20,0.2],
-    [10,0.20,0.60,0.10,0.1],
-    [20,0.50,0.120,0.4500,0.456],
-    [11,0.50,0.10,0.20,0.2],
-    [9,0.50,0.10,0.20,0.2],
-    [11.5,0.50,0.10,0.20,0.2],
-    [10.5,0.50,0.10,0.20,0.2],
+    [100.2,4,.8,.9,2.34],
+    [80,.19,.7,.85,3.6],
+    [190,43,.34,.46,1.0],
+    [105,84,.28,.43,2.3],
+    [180,34,.89,.79,4.2],
+    [60,94,1.89,.769,4.4],
+    [200,50,0.10,0.20,2.1],
+    [80,50,0.10,0.20,2.4],
+    [100,20,0.60,0.10,1.6],
+    [60,220,0.120,0.4500,4.56],
+    [110,120,0.10,0.20,2.6],
+    [90,90,0.10,0.20,2.3],
+    [115,60,0.10,0.20,24],
+    [105,70,0.10,0.20,2.7],
 ]
 
 n_elem = len(pop) #number of elements per generation
@@ -182,7 +183,8 @@ try:
         #mutation step
         mutation1(s,factor1, mut_prob)
         mutation1(s,factor2, mut_prob)
-        mutation1(s,factor3, (mut_prob*1.4))
+        mutation1(s,factor3, mut_prob)
+        mutation1(s,factor4, mut_prob)
         #selection of the fittest elements
         s= fitness(s,throttle_time)
         short_result(s,n_elem)
