@@ -144,8 +144,10 @@ def crossover(parent1,parent2,gen):
     remove_parents(gen,parent1,parent2)
 
 #main
+# thus far the best gen_num/num_prob ratio seems to be 1500:1/8
+mut_prob = 2**-4 #probability of a random mutation occuring; you have to choose a number that corresponds to 2^(-n)
 gen_num = 1500 #max number of generations until the algorithm stops
-mut_prob = 1/8 #probability of a random mutation occuring; you have to choose a number that corresponds to 2^(-n)
+#gen_num = int((1500/0.125)*mut_prob) #use this one instead if it is desired to utilise the ideal gen_num/num_prob ratio
 factor1 = 0.9
 factor2 = 0.92
 factor3 = 1.1
