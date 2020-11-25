@@ -41,11 +41,15 @@ def fitness(word_array, throttle_time): #tests the quality of the solutions by a
     while i<n:
         #r = os.system("echo hello world") #testing purposes only
         
-        if word_array[i].T2 - word_array[i].T1 <0 or word_array[i].t1-word_array.t2>0 or word_array[i].v0<0 or word_array[i].vi < 0:
-            obj_func[0][i]=1000000000000 + i
+        if word_array[i].T2 - word_array[i].T1 <0 or word_array[i].t1-word_array.t2>0 or word_array[i].v0<0 or word_array[i].vi < 0 or word_array[i].C < 0:
+            #word_array[i].A0= 1000000000
+            obj_func[0][i]=word_array[i].C + 10000000000000+ i
+        elif word_array[i].C < 1:
+            word_array[i].A0 = word_array[i].A0*100
+            word_array[i].T2 = word_array[i].T2*100
         else:
             obj_func[0][i]=word_array[i].C # obj function value
-            print("teste: funcao obj=",word_array[i].C)
+            print("test: obj function=",word_array[i].C)
         obj_func[1][i]=word_array[i] #set corresponding to the obj function value
         corresp[obj_func[0][i]]=obj_func[1][i] #dictionary that corresponds the obj_func value to the corresponding set
         i+=1
@@ -85,9 +89,9 @@ class in_vars: #create an object with the photo and all the relevant information
         self.Co= 1 #Annual cost of supplying m*N/h to pump shell side fluid, EUr*h/m*N*yr
         #Given variables
         self.Wi = 100 #flowrate if the inside tubes, cm^3/s
-        self.T1= 50 #hot fluid outlet temperature, ºC
-        self.T2= 20 #hot fluid inlet temperature, ºC
-        self.t1= 2 #cold fluid inlet temperature, ºC
+        self.T1= 50 #(working fluid) hot fluid outlet temperature, ºC
+        self.T2= 20 #(working fluid) hot fluid inlet temperature, ºC
+        self.t1= 2 #colant fluid inlet temperature, ºC
         self.sp= 0.1 #tube spacing
         self.Di= 0.2 #inside diameter
         self.Do= 0.3 #outside diameter
@@ -105,7 +109,7 @@ class in_vars: #create an object with the photo and all the relevant information
         self.phio=0.5*0.01 #phi = 0.5*friction factor, which is being approximated to 0.01
         self.Ei=self.phii*self.hi**3.5
         self.Eo=self.phio*self.ho**4.75
-        self.vi =self.Wi/self.roi #averagev veolocity of fluiid side tubes, cm^3/s
+        self.vi =self.Wi/self.roi #average velocity of fluiid side tubes, cm^3/s
         self.Nt =self.Wi*4/(self.vi*math.pi*self.Di**2)
         self.Lt = self.A0/(self.Nt*math.pi*self.Do) #tube length
         self.Ai = self.Di*self.Lt #outside tube surface area, cm^2
@@ -123,7 +127,7 @@ class in_vars: #create an object with the photo and all the relevant information
 
 def short_result(s,lenght): #prints the results of the 4 optimisation variables
         print("Final result")
-        print("vector [t2 ,A0, hi, ho, vo] : ")
+        print("vector [t2 ,A0, hi, ho, vo, C] : ")
         j=0
         while j<5:
             print(s[j].t2,s[j].A0,s[j].hi,s[j].ho,s[j].vo,s[j].C)
@@ -177,6 +181,7 @@ i=0
 try:
     while i<gen_num: #if clause to limit the max number of generations
         #crossover step
+        crossover(s[0],s[1],s)
         crossover(s[1],s[3],s)
         crossover(s[2],s[4],s)
         #crossover(s[0],s[1],s)
