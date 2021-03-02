@@ -10,4 +10,4 @@ This software is available for Windows operating systems. The installers for thi
 
 ## Additional information
 
-This app was made with Beeware technology, which allows for the software, written in Python, to be ported to a  Windows native application. The the necessary code for the app functionality is in the "app" file.
+This app was made with Beeware technology, which allows for the software, written in Python, to be ported to a  Windows native application. The the necessary code for the app functionality is in the "app.py" file.
