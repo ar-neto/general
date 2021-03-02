@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Briefcase-Version: 0.3.4
+Name: Counterbee
+Formal-Name: Counterbee
+App-ID: com.example.Counterbee
+Version: 0.0.1
+Home-page: http://dummyurl.com
+Author: Arnaldo Neto
+Author-email: arnaldofilipeneto@gmail.com
+Summary: It can count things
