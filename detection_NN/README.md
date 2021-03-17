@@ -1,4 +1,4 @@
-# Image Detection Neuiral Networks
+# Image Detection Neural Networks
 
 This project was done as a way to use image detection neural networks in images collected from a computer webcam. The neural networks implementation was done using Tensorflow and Google Colab computaional resources.
 
