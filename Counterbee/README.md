@@ -1,6 +1,6 @@
 # Counterbee
 
-Many situations require counting various things. However, one occasionally loses track of how meany items were counted. To fix that issue, this software can keep track of the counted items through its simple UI.
+Many situations require counting various things. However, one occasionally loses track of how many items were counted. To fix that issue, this software can keep track of the counted items through its simple UI.
 
 
 
