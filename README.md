@@ -3,7 +3,7 @@ Repository containing a general project portfolio that can be subdivided into th
 
 Machine Learning
 ----------------
-- [input_classifier](https://github.com/ar-neto/general/tree/main/input_classifier) : Classifies between XSS/SQLi text strings and regular, harmless user input via text classification
+- [input_classifier](https://github.com/ar-neto/general/tree/main/input_classifier) : Classifies between XSS/SQLI text strings and regular, harmless user input via text classification
 - [image_class_NN](https://github.com/ar-neto/general/tree/main/image_class_NN) : Classifies images across the 10 classes in the CIFAR-10 dataset
 - [detection_NN](https://github.com/ar-neto/general/tree/main/detection_NN) : Performs image detection on input from a user's webcam
 
