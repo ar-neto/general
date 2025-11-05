@@ -10,7 +10,7 @@ name = "pytorch"
 
 [packages]
 torch = {version="*", index="pytorch"}
-torchtext = "==0.15.0"
+torchtext = "*"
 numpy = "<2"
 portalocker = ">=2.0.0"
 spacy = "*"

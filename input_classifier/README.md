@@ -1,5 +1,12 @@
 # Input validator
 
+## Installation
+```
+export PIP_DEFAULT_TIMEOUT=1200
+python3.12 -m pipenv install
+
+```
+
 ## Introduction & motivation
 When it comes to cyber-security, be it for search queries on search bars, a text input on a password field or text on user generated content, the need to make sure text added by users in a platform is harmless to it. If such assurance isn't provided, that can leave platforms vulnerable to all sorts of malicious attacks (for instance [cross-site scripting (XSS)](https://portswigger.net/web-security/cross-site-scripting) and [SQL injection (SQLI)](https://portswigger.net/web-security/sql-injection)), which in turn can lead to disastrous consequences, such as data exfiltration or tampering, unauthorised login and more.
 So, prevent this, different approaches can be taken. Often times, user input is validated, filtered and sanitised before it is processed in order to make sure it's completely harmless. This way, whether it's text on a comment section or on an uploaded user file, it is stil possible to ensure the input is not going to damage any platforms or its underlying assets.
